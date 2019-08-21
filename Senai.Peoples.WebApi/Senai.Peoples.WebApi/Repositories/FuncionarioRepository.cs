@@ -134,7 +134,7 @@ namespace Senai.Peoples.WebApi.Repositories
 
         public FuncionarioDomain BuscarPorNome(string nomeFuncionario)
         {
-            string Query = "SELECT IdFuncionario, NomeFuncionario,SobrenomeFuncionario FROM Funcionarios WHERE NomeFuncionario like %@NomeFuncionario%";
+            string Query = "SELECT IdFuncionario, NomeFuncionario,SobrenomeFuncionario FROM Funcionarios WHERE NomeFuncionario like @NomeFuncionario";
 
             using (SqlConnection con = new SqlConnection(StringConexao))
             {

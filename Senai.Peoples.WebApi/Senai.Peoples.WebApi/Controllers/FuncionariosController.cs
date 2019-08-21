@@ -20,7 +20,7 @@ namespace Senai.Peoples.WebApi.Controllers
         public IEnumerable<FuncionarioDomain> Listar()
         {
 
-            // return estilos;
+
             return funcionarioRepository.Listar();
         }
 
@@ -62,7 +62,7 @@ namespace Senai.Peoples.WebApi.Controllers
             return Ok();
         }
 
-        [HttpGet("{NomeFuncionario}")]
+        [HttpGet("Buscar/{NomeFuncionario}")]
         public IActionResult BuscarPorNome(string nomeFuncionario)
         {
             FuncionarioDomain Funcionario = funcionarioRepository.BuscarPorNome(nomeFuncionario);
