@@ -55,7 +55,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/Api/funcionarios/1",
+							"raw": "http://localhost:5000/Api/funcionarios/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -64,7 +64,7 @@
 							"path": [
 								"Api",
 								"funcionarios",
-								"1"
+								"5"
 							]
 						}
 					},
@@ -84,7 +84,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"NomeFuncionario\" : \"Matheus\"\n\t,\"SobrenomeFuncionario\" : \"Pieri\"\n}"
+							"raw": "{\n\t\"NomeFuncionario\" : \"Murilo\"\n\t,\"SobrenomeFuncionario\" : \"Strada\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:5000/Api/funcionarios",
@@ -128,6 +128,28 @@
 								"Api",
 								"funcionarios",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Funcionarios.BuscarPorNome",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/Api/funcionarios/Buscar/Tadeu",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"Api",
+								"funcionarios",
+								"Buscar",
+								"Tadeu"
 							]
 						}
 					},
