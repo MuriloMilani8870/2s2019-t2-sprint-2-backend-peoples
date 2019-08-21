@@ -10,7 +10,7 @@ namespace Senai.Peoples.WebApi.Repositories
     public class FuncionarioRepository
     {
 
-            List<FuncionarioDomain> funcionarios = new List<FuncionarioDomain>();
+        List<FuncionarioDomain> funcionarios = new List<FuncionarioDomain>();
 
 
         private string StringConexao =
@@ -102,17 +102,67 @@ namespace Senai.Peoples.WebApi.Repositories
 
         public void Cadastrar(FuncionarioDomain funcionario)
         {
-            string Query = "INSERT INTO Generos (Nome) VALUES (@Nome)";
+            string Query = "INSERT INTO Funcionarios (NomeFuncionario,SobrenomeFuncionario) VALUES (@NomeFuncionario,@SobrenomeFuncionario)";
 
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
                 SqlCommand cmd = new SqlCommand(Query, con);
-                cmd.Parameters.AddWithValue("@Nome", genero.Nome);
+                cmd.Parameters.AddWithValue("@NomeFuncionario", funcionario.NomeFuncionario);
+                cmd.Parameters.AddWithValue("@SobrenomeFuncionario", funcionario.SobrenomeFuncionario);
                 con.Open();
                 cmd.ExecuteNonQuery();
             }
         }
 
 
+        public void Alterar(FuncionarioDomain funcionarioDomain)
+        {
+            string Query = "UPDATE Funcionarios SET NomeFuncionario = @NomeFuncionario, SobrenomeFuncionario = @SobrenomeFuncionario Where IdFuncionario = @IdFuncionario";
+
+            using (SqlConnection con = new SqlConnection(StringConexao))
+            {
+                SqlCommand cmd = new SqlCommand(Query, con);
+                cmd.Parameters.AddWithValue("@NomeFuncionario", funcionarioDomain.NomeFuncionario);
+                cmd.Parameters.AddWithValue("@SobrenomeFuncionario", funcionarioDomain.SobrenomeFuncionario);
+                cmd.Parameters.AddWithValue("@IdFuncionario", funcionarioDomain.IdFuncionario);
+
+                con.Open();
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public FuncionarioDomain BuscarPorNome(string nomeFuncionario)
+        {
+            string Query = "SELECT IdFuncionario, NomeFuncionario,SobrenomeFuncionario FROM Funcionarios WHERE NomeFuncionario like %@NomeFuncionario%";
+
+            using (SqlConnection con = new SqlConnection(StringConexao))
+            {
+                con.Open();
+
+                SqlDataReader sdr;
+
+                using (SqlCommand cmd = new SqlCommand(Query, con))
+                {
+                    cmd.Parameters.AddWithValue("@NomeFuncionario", nomeFuncionario);
+                    sdr = cmd.ExecuteReader();
+
+                    if (sdr.HasRows)
+                    {
+                        while (sdr.Read())
+                        {
+                            FuncionarioDomain funcionario = new FuncionarioDomain
+                            {
+                                IdFuncionario = Convert.ToInt32(sdr["IdFuncionario"]),
+                                NomeFuncionario = sdr["NomeFuncionario"].ToString(),
+                                SobrenomeFuncionario = sdr["SobrenomeFuncionario"].ToString()
+                            };
+                            return funcionario;
+                        }
+                    }
+                    return null;
+                }
+            }
+        }
     }
 }

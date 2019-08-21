@@ -42,5 +42,36 @@ namespace Senai.Peoples.WebApi.Controllers
             funcionarioRepository.Deletar(id);
             return Ok();
         }
+
+
+        [HttpPost]
+        public IActionResult Cadastrar(FuncionarioDomain funcionarioDomain)
+        {
+            funcionarioRepository.Cadastrar(funcionarioDomain);
+            return Ok();
+        }
+
+
+
+        [HttpPut("{id}")]
+
+        public IActionResult Atualizar(FuncionarioDomain funcionarioDomain, int id)
+        {
+            funcionarioDomain.IdFuncionario = id;
+            funcionarioRepository.Alterar(funcionarioDomain);
+            return Ok();
+        }
+
+        [HttpGet("{NomeFuncionario}")]
+        public IActionResult BuscarPorNome(string nomeFuncionario)
+        {
+            FuncionarioDomain Funcionario = funcionarioRepository.BuscarPorNome(nomeFuncionario);
+            if (Funcionario == null)
+            {
+                return NotFound();
+            }
+            return Ok(Funcionario);
+        }
     }
+
 }
